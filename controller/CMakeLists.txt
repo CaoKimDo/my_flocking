@@ -1,0 +1,2 @@
+add_library(my_flocking_controller SHARED my_flocking_controller.cpp)
+target_link_libraries(my_flocking_controller ${ARGOS_LDFLAGS})

@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+  <!-- General configuration -->
+  <framework>
+    <system threads="0"/>
+    <experiment length="0"
+                ticks_per_second="5"
+                random_seed="88"/>
+  </framework>
+
+  <!-- Controllers -->
+  <controllers>
+    <my_flocking_controller id="mfc"
+                            library="build/controller/libmy_flocking_controller">
+      <actuators>
+        <differential_steering implementation="default"/>
+        <leds implementation="default" medium="leds"/>
+      </actuators>
+      <sensors>
+        <footbot_light implementation="rot_z_only" show_rays="true"/>
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="true"/>
+      </sensors>
+      <params>
+        <wheel_turning hard_turn_angle_threshold="90"
+                       soft_turn_angle_threshold="70"
+                       no_turn_angle_threshold="10"
+                       max_speed="10" />
+        <flocking target_distance="75"
+                  gain="1000"
+                  exponent="2"/>
+      </params>
+    </my_flocking_controller>
+  </controllers>
+
+  <!-- Arena configuration -->
+  <arena size="14,14,1" center="0,0,0.5">
+    <light id="light"
+           position="0,0,0.5"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="3.0"
+           medium="leds"/>
+    <distribute>
+      <position method="uniform" min="4,4,0" max="6,6,0"/>
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0"/>
+      <entity quantity="20" max_trials="100">
+        <foot-bot id="fb" omnidirectional_camera_aperture="80">
+          <controller config="mfc"/>
+        </foot-bot>
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- Physics engines -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- Media -->
+  <media>
+    <led id="leds"/>
+  </media>
+  
+  <!-- Visualization -->
+  <visualization>
+    <qt-opengl>
+      <camera>
+        <placements>
+          <placement index="0" position="3.47447,8.20587,3.42167" look_at="3.94263,7.5512,2.82817" up="0.345221,-0.48276,0.804839" lens_focal_length="20"/>
+        </placements>
+      </camera>
+    </qt-opengl>
+  </visualization>
+</argos-configuration>
