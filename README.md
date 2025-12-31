@@ -37,9 +37,9 @@
 - Ensures robot starts fresh if simulation is restarted
 
 # TO RUN:
-mkdir build
-cd build
-cmake ..
-make
-cd ..
-argos3 -c experiments/my_flocking.argos
+- mkdir build
+- cd build
+- cmake ..
+- make
+- cd ..
+- argos3 -c experiments/my_flocking.argos
